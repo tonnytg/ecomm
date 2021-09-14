@@ -5,3 +5,4 @@ Domains:
 Product
 User
 Store
+Payment
