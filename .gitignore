@@ -3,6 +3,7 @@
 
 # GO
 go.sum
+*.env
 
 # Binaries for programs and plugins
 *.exe
