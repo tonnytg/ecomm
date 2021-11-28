@@ -3,6 +3,7 @@ package client
 import (
 	"errors"
 	"github.com/google/uuid"
+	"gorm.io/gorm"
 )
 
 const (
@@ -19,6 +20,7 @@ type ClientInterface interface {
 }
 
 type Client struct {
+	gorm.Model
 	Address    string    `json:"address"`
 	Email      string    `json:"email"`
 	ValidEmail bool      `json:"valid_email"`
