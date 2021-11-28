@@ -3,6 +3,7 @@ package main
 import (
 	"ecomm/api"
 	"ecomm/database"
+	"os"
 )
 
 func main(){
@@ -10,5 +11,9 @@ func main(){
 	database.InitDatabase()
 
 	// start api handler
-	api.StartApi()
+	if len(os.Args) > 1 {
+		database.Migrate()
+	} else {
+		api.StartApi()
+	}
 }
