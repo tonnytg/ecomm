@@ -1,12 +1,20 @@
 package database
 
 import (
+	client "ecomm/entity"
 	log "ecomm/pkg/loggin"
 	"fmt"
+	"github.com/google/uuid"
+	"golang.org/x/crypto/bcrypt"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"os"
 )
+func HandleErr(err error) {
+	if err != nil {
+		panic(err.Error())
+	}
+}
 
 var DB *gorm.DB
 
@@ -41,4 +49,43 @@ func InitDatabase() {
 		os.Exit(1)
 	}
 	DB = database
+}
+
+func Migrate() {
+	Client := &client.Client{}
+	DB.AutoMigrate(&Client)
+
+	createClient()
+	fmt.Println("Migration complete")
+}
+
+func HashAndSalt(pass []byte) string {
+	hashed, err := bcrypt.GenerateFromPassword(pass, bcrypt.MinCost)
+	HandleErr(err)
+
+	return string(hashed)
+}
+
+func createClient() {
+	genId := uuid.New()
+	clients := &[2]client.Client{
+		{
+			Address    : "test",
+			Email      : "teste@gmail.com",
+			ValidEmail : true,
+			FirstName  : "tonny",
+			LastName   : "tg",
+			Password   : "tonnytg",
+			Username   : "tonnytg",
+			Status     : "ok",
+			ID         : genId,
+		},
+	}
+	fmt.Println(clients)
+
+	for i := 0; i < len(clients); i++ {
+		generatePassword := HashAndSalt([]byte(clients[i].Username))
+		user := &client.Client{Username: clients[i].Username, Email: clients[i].Email, Password: generatePassword}
+		DB.Create(&user)
+	}
 }
