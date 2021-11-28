@@ -10,9 +10,18 @@ Config database (Example):
     export DB_PASSWORD="postgres"
     export DB_SSL="disable"
 
+
+### Migration
+
+Run program with sub arguments, if len(Args) > 1 run migration and create tables.
+
+    go run main.go create-db
+
+### WIP
+
 Domains:
 
-    Product
-    User
-    Store
-    Payment
+- [ ] Product
+- [ ] User
+- [ ] Store
+- [ ] Payment
