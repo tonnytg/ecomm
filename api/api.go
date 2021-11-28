@@ -6,17 +6,9 @@ import (
 	"net/http"
 )
 
-func headers(w http.ResponseWriter, r *http.Request) {
-	q := r.URL.Query()
-	fmt.Fprintf(w, "Hello ")
-	for _, v := range q["name"] {
-		fmt.Fprintf(w, "%s ", v)
-	}
-	fmt.Fprintf(w, "\n")
-}
-
-func StartApi(){
+func StartApi() {
 	fmt.Println("Listening on http://localhost:8080/api/v1")
 	http.HandleFunc("/api/v1", headers)
+	http.HandleFunc("/api/v1/client", clientHandler)
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }

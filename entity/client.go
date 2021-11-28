@@ -11,7 +11,7 @@ const (
 	ENABLED  = "enabled"
 )
 
-type ClientInterface interface {
+type InterfaceClient interface {
 	Enable() error
 	Disable() error
 	GetID() uuid.UUID
@@ -32,15 +32,34 @@ type Client struct {
 	ID         uuid.UUID `json:"user_id"`
 }
 
-func NewClient(firstname, lastname, username string) *Client {
+func NewClient(username, password, email string) *Client {
 	client := Client{
-		ID:        uuid.New(),
-		Status:    DISABLED,
-		FirstName: firstname,
-		LastName:  lastname,
-		Username:  username,
+		ID:       uuid.New(),
+		Status:   DISABLED,
+		Username: username,
+		Password: password,
+		Email:    email,
 	}
 	return &client
+}
+
+func (c *Client) Check() bool {
+	// check username
+	if c.Username == "" {
+		return false
+	}
+
+	// check password
+	if c.Password == "" {
+		return false
+	}
+
+	// check email
+	if c.Email == "" {
+		return false
+	}
+
+	return true
 }
 
 func (c *Client) GetID() uuid.UUID {

@@ -22,6 +22,18 @@ Run program with sub arguments, if len(Args) > 1 run migration and create tables
 Domains:
 
 - [ ] Product
-- [ ] User
+- [ ] Client
 - [ ] Store
 - [ ] Payment
+
+### Client
+
+Register use same URL with POST method.
+
+    curl --location --request POST 'http://localhost:8080/api/v1/client' \
+        --header 'Content-Type: application/json' \
+        --data-raw '{
+            "username": "teste",
+            "password": "teste1",
+            "email": "teste1@gmail.com"
+        }'
