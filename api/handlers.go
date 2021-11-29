@@ -18,7 +18,7 @@ func clientHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
 		// get query
 		q := r.URL.Query()
-		// if don't have a name, return error bad request
+		// if you don't have a name, return error bad request
 		if q["name"] == nil {
 			status := http.StatusBadRequest
 			http.Error(w, http.StatusText(status), status)
@@ -47,7 +47,7 @@ func clientHandler(w http.ResponseWriter, r *http.Request) {
 		if c.Check() {
 			database.DB.Create(&c)
 
-			status := http.StatusOK
+			status := http.StatusCreated
 			http.Error(w, http.StatusText(status), status)
 			return
 		}
