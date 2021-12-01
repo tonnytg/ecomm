@@ -8,7 +8,7 @@ import (
 
 func main() {
 	// start database connection
-	database.InitDatabase()
+	//database.InitDatabase()
 
 	if len(os.Args) > 1 {
 		// fist running to build tables
