@@ -26,11 +26,13 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>Car</td>
-                    <td>10.000</td>
-                    <td>Sell</td>
-                </tr>
+                {{range .}}
+                    <tr>
+                        <td>{{.Name}}</td>
+                        <td>{{.Price}}</td>
+                        <td>{{.Actions}}</td>
+                    </tr>
+                {{end}}
                 </tbody>
             </table>
         </section>

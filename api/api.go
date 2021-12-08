@@ -6,8 +6,9 @@ import (
 	"log"
 	"net/http"
 )
-// temp define template folder
-var temp = template.Must(template.ParseGlob("templates/*.html"))
+
+// tpl define template folder
+var tpl = template.Must(template.ParseGlob("templates/*.html"))
 
 func StartApi() {
 	http.HandleFunc("/", index)
@@ -17,6 +18,18 @@ func StartApi() {
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 
+type Produto struct {
+	Name string
+	Price float64
+	Actions []string
+}
+
 func index(w http.ResponseWriter, r *http.Request) {
-	temp.ExecuteTemplate(w, "index.html", nil)
+
+	produtos := []Produto{
+			{Name: "Produto 1", Price: 10.00, Actions: []string{"Comprar", "Vender"}},
+			{Name: "Produto 2", Price: 11.00, Actions: []string{"Comprar", "Vender"}},
+		}
+
+	tpl.ExecuteTemplate(w, "index.html", produtos)
 }
